@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PortaleCorsi.Models;
+using PortaleCorsi.Repositories;
 using System.Diagnostics;
 
 namespace PortaleCorsi.Controllers
@@ -8,13 +9,16 @@ namespace PortaleCorsi.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        readonly ICorsoRepository _corsoRepository;
+        public HomeController(ILogger<HomeController> logger,ICorsoRepository corso)
         {
             _logger = logger;
+            _corsoRepository = corso;
         }
 
         public IActionResult Index()
         {
+            //_corsoRepository.AddAsync
             return View();
         }
 
