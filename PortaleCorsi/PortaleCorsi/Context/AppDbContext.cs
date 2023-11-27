@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PortaleCorsi.DbEntities;
+using PortaleCorsi.Repositories;
 
 namespace PortaleCorsi.Context
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : DbContext, IUnitOfWork
     {
         readonly IConfiguration? _configuration;
         public string? ConnectionString { get; set; }
@@ -99,6 +100,13 @@ namespace PortaleCorsi.Context
 
                 e.HasIndex(p => p.CodiceFiscale).IsUnique(true).IsClustered(false);
             });
+        }
+
+        public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default)
+        {
+            bool hasChangesBeforeSave = ChangeTracker.HasChanges();
+            int saveChangesCount = await base.SaveChangesAsync(cancellationToken: cancellationToken);
+            return hasChangesBeforeSave == false || saveChangesCount > 0;
         }
     }
 }
