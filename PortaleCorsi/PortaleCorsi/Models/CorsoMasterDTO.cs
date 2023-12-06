@@ -7,7 +7,7 @@ namespace PortaleCorsi.Models
     {
         public int Id { get; set; }
 
-       
+       //ciao
         public DateTime DataCreazione { get; set; }
 
        
