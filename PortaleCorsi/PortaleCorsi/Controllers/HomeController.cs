@@ -26,6 +26,10 @@ namespace PortaleCorsi.Controllers
         {
             return View();
         }
+        public async Task<IActionResult>  Dettaglio(int id )
+        {
+            var corso = await _corsoRepository.FindAsync( id );
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
